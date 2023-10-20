@@ -13,7 +13,7 @@ class TasksList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: tasks.length,
-      itemBuilder: (ctx, index) => Text(tasks[index].title )
+      itemBuilder: (ctx, index) => Text(tasks[index].title ),
     );
   }
 }

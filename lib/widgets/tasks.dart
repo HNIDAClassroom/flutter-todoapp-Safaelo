@@ -34,12 +34,29 @@ final List<Task> _registeredTasks = [
   // Add more tasks with descriptions as needed
 ];
 
+ void _openAddTaskOverlay() {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => const Text('Patientez ...'),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+            appBar: AppBar(
+        title: const Text('Add task'),
+        actions: [
+          IconButton(
+            onPressed: _openAddTaskOverlay,
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
       body: Column(
         children: [const 
-          Text('Title'),
+          Text('To Do List'),
           Expanded(child: TasksList(tasks: _registeredTasks)),
      ], ),
     );
