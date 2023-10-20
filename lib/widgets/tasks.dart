@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todolist_app/models/task.dart';
+import 'package:todolist_app/widgets/tasks_list.dart';
 
 class Tasks extends StatefulWidget {
   const Tasks({super.key});
@@ -37,11 +38,10 @@ final List<Task> _registeredTasks = [
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: const [
-          Text('The title'),
-          Text('Tasks list...'),
-        ],
-      ),
+        children: [const 
+          Text('Title'),
+          Expanded(child: TasksList(tasks: _registeredTasks)),
+     ], ),
     );
   }
 }
