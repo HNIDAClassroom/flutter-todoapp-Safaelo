@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todolist_app/models/task.dart';
 import 'package:todolist_app/widgets/tasks_list.dart';
+import 'package:todolist_app/widgets/new_task.dart';
 
 class Tasks extends StatefulWidget {
   const Tasks({super.key});
@@ -37,7 +38,7 @@ final List<Task> _registeredTasks = [
  void _openAddTaskOverlay() {
     showModalBottomSheet(
       context: context,
-      builder: (ctx) => const Text('Patientez ...'),
+      builder: (ctx) => const NewTask(),
     );
   }
 
@@ -45,7 +46,7 @@ final List<Task> _registeredTasks = [
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            appBar: AppBar(
+        appBar: AppBar(
         title: const Text('Add task'),
         actions: [
           IconButton(

@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  provider: ^6.0.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -53,6 +53,23 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  fonts:
+    - family: FFF_Tusj
+      fonts:
+        - asset: fonts/FFF_Tusj.ttf
+        - asset: fonts/FFF_Tusj.ttf
+          
+    - family: LobsterTwo-BoldItalic
+      fonts:
+        - asset: fonts/LobsterTwo-BoldItalic.otf
+        - asset: fonts/LobsterTwo-BoldItalic.otf
+          
+
+  assets:
+      - images/img1.jpeg
+      - images/img2.jpg 
+      - images/img4.jpg
+      - images/img5.jpg  # Remplacez "votre_image.jpg" par le chemin de votre image
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -75,7 +92,11 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+   
+  
+     
+
+ # fonts:
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
@@ -86,6 +107,7 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
