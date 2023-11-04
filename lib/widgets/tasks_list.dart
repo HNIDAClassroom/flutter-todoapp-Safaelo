@@ -32,7 +32,7 @@ itemBuilder: (ctx, index) => TaskItem((tasks[index]),
           Map<String, dynamic> data = document.data() as Map<String, dynamic>;
           String title = data['taskTitle'] ?? ''; // Handle potential null value
           String description = data['taskDesc'] ?? ''; // Handle potential null value
-          DateTime date = data['taskDate'] != null ? DateTime.parse(data['taskDate']) : DateTime.now(); // Handle potential null value
+          ///DateTime date = data['taskDate'] != null ? DateTime.parse(data['taskDate']) : DateTime.now(); // Handle potential null value
           String categoryString = data['taskCategory'] ?? 'others'; // Handle potential null value
 
           Category category;
