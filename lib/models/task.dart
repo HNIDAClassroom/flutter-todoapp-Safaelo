@@ -7,13 +7,13 @@ class Task{
   Task({
     required this.title,
     required this.description,
-    required this.date,
+    ///required this.date,
     required this.category,
   }) : id = uuid.v4();
 
   final String id;
   final String title;
   final String  description;
-  final DateTime date;
+  ///final DateTime date;
   final Category category;
 }
