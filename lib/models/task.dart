@@ -9,6 +9,7 @@ class Task{
     required this.description,
     ///required this.date,
     required this.category,
+    required this.completed,
   }) : id = uuid.v4();
 
   final String id;
@@ -16,4 +17,5 @@ class Task{
   final String  description;
   ///final DateTime date;
   final Category category;
+  final bool completed;
 }

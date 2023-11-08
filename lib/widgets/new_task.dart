@@ -6,6 +6,7 @@ import 'package:todolist_app/models/task.dart';
 class NewTask extends StatefulWidget {
   const NewTask({super.key, required this.onAddTask});
   final void Function (Task task) onAddTask;
+  
 
   @override
   State<NewTask> createState() {
@@ -17,6 +18,7 @@ class _NewTaskState extends State<NewTask> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
    Category _selectedCategory = Category.personal;
+  bool _isCompleted = false;
 
   @override
   void dispose() {
@@ -51,9 +53,19 @@ class _NewTaskState extends State<NewTask> {
     Task(title: _titleController.text,
     description: _descriptionController.text, 
     /// date: DateTime(2023, 10, 16, 14, 30), 
-    category:_selectedCategory)
+    category:_selectedCategory,
+    completed:_isCompleted,)
     );
 
+    ////++++++++
+ _titleController.clear();
+  _descriptionController.clear();
+  setState(() {
+    _selectedCategory = Category.personal;
+    _isCompleted = false; // Réinitialisez la case à cocher à "non complétée"
+  });
+
+  /////++++++++
    }
 
 
@@ -93,6 +105,14 @@ class _NewTaskState extends State<NewTask> {
                 });  
                },
                  ),
+                  Checkbox(
+                value: _isCompleted,
+                onChanged: (value) {
+                  setState(() {
+                    _isCompleted = value ?? false;
+                  });
+                },
+              ),
               ElevatedButton(
                 onPressed: _submitTaskData,
                 child: const Text('Save Task'),
