@@ -19,7 +19,7 @@ class TaskItem extends StatefulWidget {
   });
 
   void deleteTask(BuildContext context) {
-    final taskId = task.id;
+    final taskId = task.id1;
     firestoreService.deleteTask(taskId);
     onDelete(context);
   }
@@ -35,10 +35,12 @@ class _TaskItemState extends State<TaskItem> {
   void initState() {
     super.initState();
     _isCompleted = widget.task.completed;
+    
   }
 
   @override
   Widget build(BuildContext context) {
+    print(_isCompleted);
     return Padding(
       padding: const EdgeInsets.all(9),
       child: SizedBox(
@@ -65,18 +67,21 @@ class _TaskItemState extends State<TaskItem> {
             color: Color.fromARGB(200, 187, 53, 211),
             child: Padding(
               padding: const EdgeInsets.all(24),
+              
               child: Row(
                 children: [
                   Checkbox(
                     value: _isCompleted,
+                    
                     onChanged: (value) {
                       setState(() {
                         _isCompleted = value ?? false;
                       });
                       widget.onChanged?.call(_isCompleted);
-                      widget.firestoreService.updateTaskCompletedStatus(widget.task.id, _isCompleted);
+                      widget.firestoreService.updateTaskCompletedStatus(widget.task.id1, _isCompleted);
                     },
                     activeColor: Colors.black,
+                    
                   ),
                   _isCompleted
                       ? Text(

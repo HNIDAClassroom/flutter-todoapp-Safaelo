@@ -18,6 +18,7 @@ class _NewTaskState extends State<NewTask> {
   Category _selectedCategory = Category.personal;
   bool _isCompleted = false;
   DateTime? _selectedDate = DateTime.now();
+  String id = uuid.v4();
 
   @override
   void dispose() {
@@ -53,6 +54,7 @@ class _NewTaskState extends State<NewTask> {
       date: _selectedDate,
       category: _selectedCategory,
       completed: _isCompleted,
+      id1:id ,
     ));
 
     _titleController.clear();

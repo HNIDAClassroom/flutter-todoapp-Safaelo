@@ -11,6 +11,7 @@ class FirestoreService {
       'taskCategory': task.category.toString(),
       'completed':task.completed,
       'date': task.date,
+      'id':task.id1,
     });
   }
 
@@ -22,11 +23,21 @@ return taskStream;
 
 
   Future<void> updateTaskCompletedStatus(String taskId, bool completed) {
-    return tasks.doc(taskId).update({'completed': completed});
-  }
+  return tasks.where('id', isEqualTo: taskId).get().then((querySnapshot) {
+    querySnapshot.docs.forEach((doc) {
+      tasks.doc(doc.id).update({'completed': completed});
+    });
+  });
+}
+
 
   Future<void> deleteTask(String taskId) {
-  return tasks.doc(taskId).delete();
+  return tasks.where('id', isEqualTo: taskId).get().then((querySnapshot) {
+    querySnapshot.docs.forEach((doc) {
+      tasks.doc(doc.id).delete();
+    });
+  });
 }
+
 
 }

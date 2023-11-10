@@ -40,7 +40,8 @@ class _TasksListState extends State<TasksList> {
             String title = data['taskTitle'] ?? ''; // Handle potential null value
             String description = data['taskDesc'] ?? ''; // Handle potential null value
             String categoryString = data['taskCategory'] ?? 'others'; // Handle potential null value
-            DateTime? date = (data['date'] as Timestamp?)?.toDate(); // Convertir Timestamp en DateTime
+            DateTime? date = (data['date'] as Timestamp?)?.toDate();
+            String id=data['id']; // Convertir Timestamp en DateTime
             
             Category category;
             switch (categoryString) {
@@ -62,6 +63,7 @@ class _TasksListState extends State<TasksList> {
               category: category,
               date: date,
               completed: false,
+              id1:id,
             );
             taskItems.add(task);
           }
@@ -77,7 +79,7 @@ class _TasksListState extends State<TasksList> {
                 },
                 onDelete: (context) async{
                   // Supprimez la tâche de la base de données et mettez à jour l'interface utilisateur.
-                  final taskId = taskItems[index].id;
+                  final taskId = taskItems[index].id1;
                   await widget.firestoreService.deleteTask(taskId);
                   setState(() {
                     taskItems.removeAt(index);

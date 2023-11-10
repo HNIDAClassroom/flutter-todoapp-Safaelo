@@ -22,6 +22,7 @@ class _TasksState extends State<Tasks> {
       date: DateTime.now(),
       category: Category.work,
       completed: false,
+      id1:'test',
     ),
     Task(
       title: 'Faire les courses',
@@ -29,6 +30,7 @@ class _TasksState extends State<Tasks> {
       date: DateTime.now().subtract(Duration(days: 1)),
       category: Category.shopping,
       completed: false,
+      id1:'test',
     ),
     Task(
       title: 'Rediger un CR',
@@ -36,6 +38,7 @@ class _TasksState extends State<Tasks> {
       date: DateTime.now().subtract(Duration(days: 2)),
       category: Category.personal,
       completed: false,
+      id1:'test',
     ),
     // Add more tasks with descriptions as needed
   ];

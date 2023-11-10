@@ -5,6 +5,7 @@ const uuid = Uuid();
 enum Category { personal, work, shopping, others }
 class Task{
   Task({
+    required this.id1,
     required this.title,
     required this.description,
     required this.date,
@@ -13,6 +14,8 @@ class Task{
   }) : id = uuid.v4();
 
   final String id;
+  final String id1;
+  
   final String title;
   final String  description;
   final DateTime? date;
