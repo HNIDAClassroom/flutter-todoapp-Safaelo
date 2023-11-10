@@ -1,12 +1,10 @@
-///import 'package:flutter/foundation.dart' hide Category;
 import 'package:flutter/material.dart';
 import 'package:todolist_app/models/task.dart';
-
+import 'package:intl/intl.dart';
 
 class NewTask extends StatefulWidget {
   const NewTask({super.key, required this.onAddTask});
-  final void Function (Task task) onAddTask;
-  
+  final void Function(Task task) onAddTask;
 
   @override
   State<NewTask> createState() {
@@ -17,8 +15,9 @@ class NewTask extends StatefulWidget {
 class _NewTaskState extends State<NewTask> {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
-   Category _selectedCategory = Category.personal;
+  Category _selectedCategory = Category.personal;
   bool _isCompleted = false;
+  DateTime? _selectedDate = DateTime.now();
 
   @override
   void dispose() {
@@ -27,12 +26,10 @@ class _NewTaskState extends State<NewTask> {
     super.dispose();
   }
 
-
-     void _submitTaskData() {
-    
+  void _submitTaskData() {
     if (_titleController.text.trim().isEmpty) {
       showDialog(
-              context: context,
+        context: context,
         builder: (ctx) => AlertDialog(
           title: const Text('Erreur'),
           content: const Text(
@@ -49,25 +46,37 @@ class _NewTaskState extends State<NewTask> {
       );
       return;
     }
-    widget.onAddTask( 
-    Task(title: _titleController.text,
-    description: _descriptionController.text, 
-    /// date: DateTime(2023, 10, 16, 14, 30), 
-    category:_selectedCategory,
-    completed:_isCompleted,)
+
+    widget.onAddTask(Task(
+      title: _titleController.text,
+      description: _descriptionController.text,
+      date: _selectedDate,
+      category: _selectedCategory,
+      completed: _isCompleted,
+    ));
+
+    _titleController.clear();
+    _descriptionController.clear();
+    setState(() {
+      _selectedCategory = Category.personal;
+      _isCompleted = false;
+    });
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2023),
+      lastDate: DateTime(2030),
     );
 
-    ////++++++++
- _titleController.clear();
-  _descriptionController.clear();
-  setState(() {
-    _selectedCategory = Category.personal;
-    _isCompleted = false; // Réinitialisez la case à cocher à "non complétée"
-  });
-
-  /////++++++++
-   }
-
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,29 +92,31 @@ class _NewTaskState extends State<NewTask> {
             ),
           ),
           TextField(
-  controller: _descriptionController,
-  maxLength: 100, // Définissez la longueur maximale que vous préférez
-  decoration: InputDecoration(
-    labelText: 'Description',
-  ),
-),
-          Row(
-            children: [
-              DropdownButton<Category>(
-                items: Category.values.map((category)=> DropdownMenuItem<Category>(
-                  value:_selectedCategory,
-                  child:Text(
-                    category.name.toUpperCase(),
-                  ),
-                ))
-                .toList(),
-               onChanged: (value) {
-                setState(() {
-                  _selectedCategory= value!;
-                });  
-               },
-                 ),
-                  Checkbox(
+            controller: _descriptionController,
+            maxLength: 100,
+            decoration: InputDecoration(
+              labelText: 'Description',
+            ),
+          ),
+Row(
+  children: [
+    DropdownButton<Category>(
+      value: _selectedCategory,
+      items: Category.values
+          .map((category) => DropdownMenuItem<Category>(
+                value: category,
+                child: Text(
+                  category.name.toUpperCase(),
+                ),
+              ))
+          .toList(),
+      onChanged: (value) {
+        setState(() {
+          _selectedCategory = value!;
+        });
+      },
+    ),
+              Checkbox(
                 value: _isCompleted,
                 onChanged: (value) {
                   setState(() {
@@ -113,11 +124,34 @@ class _NewTaskState extends State<NewTask> {
                   });
                 },
               ),
-              ElevatedButton(
-                onPressed: _submitTaskData,
-                child: const Text('Save Task'),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  enabled: false,
+                  controller: TextEditingController(
+                    text: _selectedDate != null
+                        ? DateFormat('dd/MM/yyyy').format(_selectedDate!)
+                        : 'Not Selected',
+                  ),
+                  decoration: InputDecoration(
+                    labelText: 'Select Date',
+                  ),
+                ),
+              ),
+              IconButton(
+                icon: Icon(Icons.calendar_today),
+                onPressed: () {
+                  _selectDate(context);
+                },
               ),
             ],
+          ),
+          ElevatedButton(
+            onPressed: _submitTaskData,
+            child: const Text('Save Task'),
           ),
         ],
       ),

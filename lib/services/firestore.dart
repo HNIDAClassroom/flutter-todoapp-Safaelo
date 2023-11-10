@@ -10,6 +10,7 @@ class FirestoreService {
       'taskDesc': task.description.toString(),
       'taskCategory': task.category.toString(),
       'completed':task.completed,
+      'date': task.date,
     });
   }
 
